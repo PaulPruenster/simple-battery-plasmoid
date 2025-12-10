@@ -2,7 +2,7 @@
 
 # ======= CONFIGURATION =======
 # 1. Set your widget's TARGET ID (the folder name it should have in Plasma).
-WIDGET_ID="com.example.mybattery"
+WIDGET_ID="org.kde.plasma.simplebattery"
 # 2. Set your LOCAL folder name (the folder in your project directory).
 LOCAL_FOLDER="package"
 # =============================
@@ -51,7 +51,7 @@ elif [ "$1" = "remove" ]; then
 elif [ "$1" = "reinstall" ]; then
   # Shortcut: remove and install in one command
   "$0" remove
-  sleep 1 # Brief pause to let plasmashell restart
+  sleep 5 # Brief pause to let plasmashell restart
   "$0" install
 
 else
