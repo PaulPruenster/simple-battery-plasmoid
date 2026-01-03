@@ -2,6 +2,8 @@
 
 A minimal battery indicator widget for KDE Plasma.
 
+![demo](demo.png)
+
 ## Quick Testing
 
 Test the widget directly without installation:
@@ -35,5 +37,9 @@ zip simple-battery-plasmoid.plasmoid package/* -r
 1. Right-click your panel or desktop → "Add Widgets"
 2. Click "Install Widget from Local File" (usually in the menu)
 3. Select the `simple-battery-plasmoid.plasmoid` file you created
+
+4. (Optional) Disable the default battery indicator in the system tray settings
+
+![settings](settings.png)
 
 **Note:** You might have to log out and in again to your plasma shell for the widget to work correctly.
