@@ -9,16 +9,18 @@ A minimal battery indicator widget for KDE Plasma.
 Test the widget directly without installation:
 
 ### Test as a Panel Widget (Compact View)
-This simulates the widget in a top panel:
+This simulates the widget in a panel:
 
 ```bash
-plasmoidviewer -a . -l topedge -f horizontal
+cd package
+plasmoidviewer -a . -l bottomedge -f horizontal
 ```
 
 ### Test as a Desktop Widget (Full View)
 This defaults to desktop widget view:
 
 ```bash
+cd package
 plasmoidviewer -a .
 ```
 
@@ -30,7 +32,7 @@ plasmoidviewer -a .
 This creates the installable file from your `package/` directory:
 
 ```bash
-zip simple-battery-plasmoid.plasmoid package/* -r
+zip simple-battery-plasmoid.plasmoid package -r
 ```
 
 ### 2. Install in Plasma
