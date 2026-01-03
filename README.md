@@ -1,6 +1,7 @@
 # Simple Battery Plasmoid
 
 A minimal battery indicator widget for KDE Plasma.
+Since there currently doesn't seem to be a simple, standalone battery percentage plasmoid available, this is my attempt at creating one.
 
 ![demo](demo.png)
 
