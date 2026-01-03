@@ -16,7 +16,6 @@ PlasmoidItem {
     readonly property string acPluggedKey: "Plugged in"
 
     property int batteryPercent: 0
-    property bool isCharging: false
     property bool isPluggedIn: false
 
     Plasmoid.backgroundHints: PlasmaCore.Types.NoBackground
@@ -45,14 +44,7 @@ PlasmoidItem {
                 isPluggedIn = false;
             }
             
-            // Check if battery is actually charging (state 1 = charging, 2 = discharging)
-            if (data["Battery"] && data["Battery"]["State"] !== undefined) {
-                isCharging = (data["Battery"]["State"] === 1);
-            } else {
-                isCharging = false;
-            }
-            
-            console.log("Battery:", batteryPercent + "%", "Plugged in:", isPluggedIn, "Charging:", isCharging);
+            console.log("Battery:", batteryPercent + "%", "Plugged in:", isPluggedIn);
         }
         
         Component.onCompleted: {
@@ -63,33 +55,27 @@ PlasmoidItem {
 
     function getBatteryIcon() {
         // Use absolute path from the widget's installation directory
-        var iconBase = plasmoid.file("", "../icons/");
+        var iconBase = Qt.resolvedUrl("../icons/");
         
-        if (isCharging) {
-            return "file://" + iconBase + "battery_charging.png";
-        } else if (batteryPercent > 80) return "file://" + iconBase + "battery_100.png";
-        else if (batteryPercent > 60) return "file://" + iconBase + "battery_80.png";
-        else if (batteryPercent > 40) return "file://" + iconBase + "battery_60.png";
-        else if (batteryPercent > 20) return "file://" + iconBase + "battery_40.png";
-        else return "file://" + iconBase + "battery_20.png";
+        if (isPluggedIn) {
+            return iconBase + "battery_charging.png";
+        } else if (batteryPercent > 80) return iconBase + "battery_100.png";
+        else if (batteryPercent > 60) return iconBase + "battery_80.png";
+        else if (batteryPercent > 40) return iconBase + "battery_60.png";
+        else if (batteryPercent > 20) return iconBase + "battery_40.png";
+        else return iconBase + "battery_20.png";
     }
 
     toolTipMainText: "Battery"
     toolTipSubText: {
-        var status = isCharging ? "Charging" : (isPluggedIn ? "Plugged in (not charging)" : "On battery");
+        var status = isPluggedIn ? "Plugged in" : "On battery";
         return batteryPercent + "% - " + status;
     }
 
     compactRepresentation: MouseArea {
         id: representation
         
-        // For panel layout
-        implicitWidth: compactRow.implicitWidth
-        implicitHeight: compactRow.implicitHeight
-        
-        // Allow Plasma to determine actual size in panel
-        Layout.minimumWidth: Plasmoid.formFactor !== PlasmaCore.Types.Vertical ? implicitHeight : Kirigami.Units.gridUnit
-        Layout.minimumHeight: Plasmoid.formFactor === PlasmaCore.Types.Vertical ? implicitWidth : Kirigami.Units.gridUnit
+        Layout.minimumWidth: Kirigami.Units.gridUnit * 5
         
         activeFocusOnTab: true
         hoverEnabled: true
@@ -103,24 +89,24 @@ PlasmoidItem {
         Row {
             id: compactRow
             anchors.centerIn: parent
-            spacing: 2
-            
+            spacing: Kirigami.Units.gridUnit * 0.5
+
             Image {
-                id: compactIcon
-                width: PlasmaCore.Units.iconSizes.small
-                height: PlasmaCore.Units.iconSizes.small
+                width: Kirigami.Units.gridUnit * 2
+                height: Kirigami.Units.gridUnit * 2
                 smooth: true
                 fillMode: Image.PreserveAspectFit
                 source: getBatteryIcon()
                 sourceSize.width: width
                 sourceSize.height: height
+                anchors.verticalCenter: parent.verticalCenter
             }
 
             PlasmaComponents.Label {
                 id: compactLabel
                 text: batteryPercent + "%"
-                font.pixelSize: Math.max(PlasmaCore.Theme.smallestFont.pixelSize, 10)
-                verticalAlignment: Text.AlignVCenter
+                font.pixelSize: Kirigami.Units.gridUnit
+                anchors.verticalCenter: parent.verticalCenter
             }
         }
     }
@@ -141,12 +127,13 @@ PlasmoidItem {
                 source: getBatteryIcon()
                 sourceSize.width: width
                 sourceSize.height: height
+                anchors.verticalCenter: parent.verticalCenter
             }
 
             PlasmaComponents.Label {
                 text: batteryPercent + " %"
                 font.pixelSize: Kirigami.Units.gridUnit * 3
-                verticalAlignment: Text.AlignVCenter
+                anchors.verticalCenter: parent.verticalCenter
             }
         }
     }
