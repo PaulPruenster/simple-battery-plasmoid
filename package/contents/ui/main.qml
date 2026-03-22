@@ -84,7 +84,9 @@ PlasmoidItem {
         Accessible.description: toolTipSubText
         Accessible.role: Accessible.Button
 
-        onClicked: main.expanded = !main.expanded
+        onClicked: {
+            
+        }
 
         Row {
             id: compactRow
@@ -112,29 +114,6 @@ PlasmoidItem {
     }
 
     fullRepresentation: Item {
-        Layout.minimumWidth: Kirigami.Units.gridUnit * 15
-        Layout.minimumHeight: Kirigami.Units.gridUnit * 10
-
-        Row {
-            anchors.centerIn: parent
-            spacing: Kirigami.Units.gridUnit * 2
-
-            Image {
-                width: Kirigami.Units.gridUnit * 8
-                height: Kirigami.Units.gridUnit * 8
-                smooth: true
-                fillMode: Image.PreserveAspectFit
-                source: getBatteryIcon()
-                sourceSize.width: width
-                sourceSize.height: height
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            PlasmaComponents.Label {
-                text: batteryPercent + " %"
-                font.pixelSize: Kirigami.Units.gridUnit * 3
-                anchors.verticalCenter: parent.verticalCenter
-            }
-        }
+        
     }
 }
