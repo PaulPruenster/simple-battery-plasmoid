@@ -5,7 +5,7 @@ on:
     paths:
       - 'simple-battery-plasmoid.plasmoid'
     branches:
-      - main
+      - master
 
 jobs:
   release:
