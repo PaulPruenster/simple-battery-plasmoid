@@ -30,7 +30,7 @@ PlasmoidItem {
             console.log("Battery data:", JSON.stringify(data["Battery"]));
             console.log("AC Adapter data:", JSON.stringify(data["AC Adapter"]));
             
-            // Get current battery percentage
+            // Get battery percentage
             if (data["Battery"] && data["Battery"]["Percent"] !== undefined) {
                 batteryPercent = data["Battery"]["Percent"];
             } else {
