@@ -1,0 +1,30 @@
+name: Release ZIP with GitHub CLI
+
+on:
+  push:
+    paths:
+      - 'simple-battery-plasmoid.plasmoid'
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh
+
+      - name: Create Release with GitHub CLI
+        run: |
+          gh release create \
+            auto-release-$(date +%Y%m%d%H%M%S) \
+            simple-battery-plasmoid.plasmoid \
+            --title "Auto Release - $(date +%Y-%m-%d\ %H:%M:%S)" \
+            --notes "Automated release triggered by ZIP file update."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
