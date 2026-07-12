@@ -46,3 +46,8 @@ zip simple-battery-plasmoid.plasmoid package -r
 ![settings](settings.png)
 
 **Note:** You might have to log out and in again to your plasma shell for the widget to work correctly.
+
+## TODO
+
+- Dark light theme
+- Open default battery menu on click
